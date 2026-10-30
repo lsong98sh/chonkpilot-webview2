@@ -12,7 +12,7 @@
 | 本仓（fork） | `https://github.com/lsong98sh/chonkpilot-webview2` |
 | module path | `github.com/jchv/go-webview2`（**保持与上游同名**，靠各消费方 `go.mod` 的 `replace` 指向本仓本地克隆目录） |
 | 引入方式 | 独立 git 仓库（非 submodule）；主仓 `go.mod` 以 `replace` 指向本地克隆 |
-| 消费方 `replace` | `src/lib/gui/go.mod`（`=> ../../chonkpilot-webview2`） · `src/lib/appwire/go.mod` · `src/lib/mcp-tools/go.mod`（同） · `src/desktop/go.mod`（`=> ../chonkpilot-webview2`） · `src/test/chonkpilot-gui/unittest/go.mod`（`=> ../../../../chonkpilot-webview2`） |
+| 消费方 `replace` | 主仓：`src/lib/gui/go.mod`（`=> ../../../../chonkpilot-webview2`） · `src/lib/appwire/go.mod` · `src/lib/mcp-tools/go.mod`（同） · `src/desktop/go.mod`（`=> ../../../chonkpilot-webview2`） · `src/test/chonkpilot-gui/unittest/go.mod`（`=> ../../../../../chonkpilot-webview2`） · `chonkpilot-framework/host/src/go.mod` · 插件仓：`chonkpilot-plugins/browser/src/engine/go.mod`（`=> ../../../../chonkpilot-webview2`；**2026-10-30 起为唯一源**，插件仓 `third_party/go-webview2` 内嵌副本已删除） |
 
 ## 2. 版本（基线）
 
