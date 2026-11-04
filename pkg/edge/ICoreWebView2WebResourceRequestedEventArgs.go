@@ -49,3 +49,19 @@ func (i *ICoreWebView2WebResourceRequestedEventArgs) GetRequest() (*ICoreWebView
 	}
 	return request, nil
 }
+
+// GetDeferral 取得延迟句柄：回调返回后 WebView2 仍等待 PutResponse + Complete()。
+//
+// 必须在**回调内（UI 线程）**调用；完成后在 UI 线程 PutResponse 再 Complete。
+// 用于把「耗时处理」移出 UI 线程（否则会阻塞整个窗口的网络请求，见 ICoreWebView2Deferral 注释）。
+func (i *ICoreWebView2WebResourceRequestedEventArgs) GetDeferral() (*ICoreWebView2Deferral, error) {
+	var deferral *ICoreWebView2Deferral
+	_, _, err := i.vtbl.GetDeferral.Call(
+		uintptr(unsafe.Pointer(i)),
+		uintptr(unsafe.Pointer(&deferral)),
+	)
+	if err != windows.ERROR_SUCCESS {
+		return nil, err
+	}
+	return deferral, nil
+}
